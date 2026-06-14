@@ -1,10 +1,9 @@
 # Chapter 1: Why Trust?
 
 This guide is about building AI agents in Python (on Azure, with GitHub
-Copilot) that you can actually trust in front of real users.
+Copilot) that you can actually trust in front of customers you care about.
 
-There is a real tension at the heart of it: the difference between *trusting a
-local hawker uncle* who has cooked the same dish for thirty years, and *trusting
+There is a tension at the heart of it: the difference between *trusting a local hawker uncle* who has cooked the same dish for thirty years, and *trusting
 a chatbot* you met five seconds ago. Closing that gap is the whole job.
 
 ## Why trust is the hard part
