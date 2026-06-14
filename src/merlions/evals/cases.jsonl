@@ -1,0 +1,5 @@
+{"id":"hawker-001","input":{"location":"marina bay"},"expect":{"agent":"hawker","cite_contains":"satay-bay"}}
+{"id":"hawker-002","input":{"location":"chinatown"},"expect":{"agent":"hawker","cite_contains":"maxwell"}}
+{"id":"hawker-003","input":{"location":""},"expect":{"agent":"hawker","raises":"InvalidInput"}}
+{"id":"hawker-004","input":{"location":"marina bay","cuisine":"local"},"expect":{"agent":"hawker","summary_contains":"Satay"}}
+{"id":"hawker-005-regression","input":{"location":"marina bay"},"expect":{"agent":"hawker","p95_ms":900},"source_trace":"abc123"}

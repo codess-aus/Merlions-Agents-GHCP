@@ -1,0 +1,10 @@
+name: hawker
+allowed_tools:
+  - maps_search
+  - menu_index_search
+  - find_stalls
+blocked_patterns:
+  - "(?i)(api[_-]?key|password|secret|bearer\\s+[a-z0-9]+)\\s*[:=]?"
+  - "(?i)ignore\\s+previous\\s+instructions"
+max_calls_per_request: 10
+require_citation: true
