@@ -1,0 +1,8 @@
+name: router
+allowed_tools:
+  - dispatch_hawker
+  - dispatch_haze
+  - dispatch_wisecracker
+blocked_patterns: []
+max_calls_per_request: 6
+require_citation: false

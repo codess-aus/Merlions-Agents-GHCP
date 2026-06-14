@@ -1,0 +1,8 @@
+name: wisecracker
+allowed_tools:
+  - tell_joke
+blocked_patterns:
+  - "(?i)(api[_-]?key|password|secret)\\s*[:=]?"
+  - "(?i)ignore\\s+previous\\s+instructions"
+max_calls_per_request: 3
+require_citation: false

@@ -1,0 +1,9 @@
+name: haze
+allowed_tools:
+  - nea_psi_current
+  - nea_psi_forecast
+  - alert_dedupe
+blocked_patterns:
+  - "(?i)(api[_-]?key|password|secret)\\s*[:=]?"
+max_calls_per_request: 8
+require_citation: true
