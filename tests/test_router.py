@@ -37,3 +37,9 @@ def test_handle_composite_question_returns_three_parts():
 def test_handle_food_only():
     reply = handle("recommend dinner near chinatown")
     assert [p.agent_id for p in reply.parts] == ["hawker"]
+
+
+def test_handle_food_only_with_spaced_chinatown_variation():
+    reply = handle("recommend dinner near China town")
+    assert [p.agent_id for p in reply.parts] == ["hawker"]
+    assert reply.parts[0].citations == ["menu_index/maxwell-tiantian/2026-06-13"]

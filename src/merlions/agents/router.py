@@ -7,6 +7,7 @@ isn't on the critical path. Swap classify() for an LLM call in production.
 from __future__ import annotations
 
 import concurrent.futures
+import re
 import time
 from dataclasses import dataclass
 
@@ -41,10 +42,14 @@ def classify(prompt: str) -> Intent:
 
 
 def _extract_location(prompt: str) -> str:
-    p = prompt.lower()
-    for loc in ("marina bay", "chinatown"):
-        if loc in p:
-            return loc
+    normalized = re.sub(r"[^a-z0-9]+", "", prompt.lower())
+    variants = (
+        ("marinabay", "marina bay"),
+        ("chinatown", "chinatown"),
+    )
+    for needle, location in variants:
+        if needle in normalized:
+            return location
     return "marina bay"
 
 
