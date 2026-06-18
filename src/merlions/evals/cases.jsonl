@@ -3,3 +3,4 @@
 {"id":"hawker-003","input":{"location":""},"expect":{"agent":"hawker","raises":"InvalidInput"}}
 {"id":"hawker-004","input":{"location":"marina bay","cuisine":"local"},"expect":{"agent":"hawker","summary_contains":"Satay"}}
 {"id":"hawker-005-regression","input":{"location":"marina bay"},"expect":{"agent":"hawker","p95_ms":900},"source_trace":"abc123"}
+{"id": "hawker-deny-9357-from-audit", "input": {"location": "marina bay", "cuisine": "api_key=audit_generated"}, "expect": {"raises": "PolicyViolation"}, "source": "audit", "matched_rule": "blocked_patterns/(?i)(api[_-]?key|password|secret|bearer\\s+[a-z0-9]+)\\s*[:=]?"}

@@ -6,6 +6,7 @@ isn't on the critical path. Swap classify() for an LLM call in production.
 
 from __future__ import annotations
 
+import concurrent.futures
 import time
 from dataclasses import dataclass
 
@@ -55,15 +56,21 @@ def handle(prompt: str) -> RouterReply:
     started = time.perf_counter()
     intent = classify(prompt)
 
+    location = _extract_location(prompt)
+
     with span("router.handle", wants_food=intent.wants_food, wants_air=intent.wants_air, wants_humour=intent.wants_humour):
-        parts: list[AgentReply] = []
+        tasks: list[tuple[str, object]] = []
 
         if intent.wants_food or not intent.any():
-            parts.append(hawker.recommend(location=_extract_location(prompt)))
+            tasks.append(("hawker", lambda: hawker.recommend(location=location)))
         if intent.wants_air:
-            parts.append(haze.check(region="south"))
+            tasks.append(("haze", lambda: haze.check(region="south")))
         if intent.wants_humour:
-            parts.append(wisecracker.quip())
+            tasks.append(("wisecracker", lambda: wisecracker.quip()))
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(tasks) or 1) as executor:
+            submitted = [executor.submit(fn) for _, fn in tasks]
+            parts = [f.result() for f in submitted]
 
         return RouterReply(
             parts=parts,

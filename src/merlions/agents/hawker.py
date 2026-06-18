@@ -7,20 +7,10 @@ from __future__ import annotations
 
 import time
 
-from merlions.governance import govern, load_policy
 from merlions.models import AgentReply, InvalidInput
 from merlions.telemetry import span
-from merlions.tools.maps import maps_search
+from merlions.tools.find_stalls import find_stalls
 from merlions.tools.menu_index import menu_index_search
-
-POLICY = load_policy("hawker")
-
-
-@govern(POLICY, tool_name="find_stalls")
-def find_stalls(location: str, cuisine: str | None = None):
-    """Governed tool wrapper for maps_search. Demo 1 illustrates this pattern."""
-
-    return maps_search(location, cuisine)
 
 
 def recommend(location: str, cuisine: str | None = None) -> AgentReply:

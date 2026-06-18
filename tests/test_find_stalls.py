@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from merlions.agents.hawker import find_stalls
+from merlions.tools.find_stalls import find_stalls
 from merlions.governance import PolicyViolation, reset_call_counter
 from merlions.models import InvalidInput, Stall
 

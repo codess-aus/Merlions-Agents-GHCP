@@ -143,5 +143,16 @@ def call_tool(
         raise typer.Exit(code=1) from None
 
 
+@app.command()
+def banner() -> None:
+    """Print the Merlions banner (setup shot for demos)."""
+    console.print(Panel.fit(
+        "[bold cyan]🦁🐟  Merlions[/bold cyan]\n"
+        "[dim]Trustworthy multi-agent Python on Azure[/dim]",
+        border_style="cyan",
+        padding=(1, 4),
+    ))
+
+
 if __name__ == "__main__":
     app()
