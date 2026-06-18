@@ -30,7 +30,7 @@ POLICY = load_policy("hawker")
 
 @govern(POLICY, tool_name="menu_index_search")
 def _governed_menu_search(query: str):
-    return menu_index_search(query, top_k=2)
+    return menu_index_search(query, top_k=1)
 
 
 def recommend(location: str, cuisine: str | None = None) -> AgentReply:
