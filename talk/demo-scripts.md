@@ -13,51 +13,7 @@
 ## 🎬 DEMO 1 — Copilot scaffolds a tool, a guardrail, and a test
 **Slide:** 5 · **Length:** ~3:00 · **Goal:** Show Copilot accelerates the *safe* parts
 
-### Before you record — reset the file to stub state
-
-`src/merlions/tools/find_stalls.py` already exists with the full implementation.
-Delete everything **after** the imports so it looks like this before you hit record:
-
-```python
-"""Tool: find_stalls — wraps the Maps API with input validation and governance."""
-
-from __future__ import annotations
-
-from merlions.governance import govern, load_policy
-from merlions.models import InvalidInput, Stall
-from merlions.tools.maps import maps_search
-```
-
-Also clear `tests/test_find_stalls.py` down to just the module docstring and imports before recording Step 3.
-
----
-
-### What to record (in this order)
-
-**Setup shot (5s)** — VS Code open, Explorer tree visible showing `src/merlions/tools/`. Highlight `find_stalls.py`. The file is open and shows only the imports above — no function body yet.
-
-**Step 1 — Scaffold the function body (45s)**
-
-Open Copilot Chat (`Ctrl+Alt+I` / `Cmd+Alt+I`). Paste this prompt exactly:
-
-```
-Add a function find_stalls(location: str, cuisine: str | None = None) -> list[Stall]
-that calls maps_search. Validate that location is non-empty — raise
-InvalidInput("location is required") if it is. Return the typed list.
-```
-
-Accept the suggestion. The completed function should look like:
-
-```python
-def find_stalls(location: str, cuisine: str | None = None) -> list[Stall]:
-  """Search for hawker stalls near a location."""
-  if not location or not location.strip():
-    raise InvalidInput("location is required")
-  return maps_search(location, cuisine)
-```
-
-Show the typed signature, the guard, the return type.
-**On-screen callout:** *"Typed signature + input validation"*
+Typed signature + input validation"*
 
 **Step 2 — Add the guardrail (45s)**
 
@@ -125,19 +81,19 @@ Use a reset_call_counter() autouse fixture between tests.
 Accept. Show all five test cases in the editor. Then copy-paste this command into the terminal:
 
 ```bash
-pytest tests/test_find_stalls.py -v
+pytest tests/test_find_stalls.py -vv -o addopts=
 ```
 
 Expected output — all green:
 
 ```
-tests/test_find_stalls.py::test_find_stalls_happy_path               PASSED
-tests/test_find_stalls.py::test_find_stalls_empty_location_raises     PASSED
-tests/test_find_stalls.py::test_find_stalls_blocks_credential_in_arg  PASSED
-tests/test_find_stalls.py::test_find_stalls_rate_limit                PASSED
-tests/test_find_stalls.py::test_find_stalls_unknown_location_returns_empty PASSED
+tests/test_find_stalls.py::test_happy_path_marina_bay_returns_stalls PASSED
+tests/test_find_stalls.py::test_empty_location_raises_invalid_input PASSED
+tests/test_find_stalls.py::test_credential_in_location_raises_policy_violation PASSED
+tests/test_find_stalls.py::test_rate_limit_raises_policy_violation_on_11th_call PASSED
+tests/test_find_stalls.py::test_unknown_location_returns_empty_list PASSED
 
-5 passed in 0.13s
+5 passed in 0.xx s
 ```
 
 **On-screen callout:** *"5 tests · unhappy paths first · all green"*
