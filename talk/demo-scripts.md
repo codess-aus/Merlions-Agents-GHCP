@@ -221,7 +221,7 @@ Walk through the output table. Point out: the `agent.hawker` span, child spans `
 Trigger a deliberate policy denial and show the audit record:
 
 ```bash
-python3 -c "
+python -c "
 from merlions.tools.find_stalls import find_stalls
 find_stalls('api_key=AKIA_DEMO')
 "
@@ -232,7 +232,7 @@ Let the `PolicyViolation` surface in the terminal. That keeps the clip honest: t
 Then inspect the audit log:
 
 ```bash
-python3 -c "
+python -c "
 import json, pathlib
 for line in pathlib.Path('.audit/audit.jsonl').read_text().splitlines():
     r = json.loads(line)
