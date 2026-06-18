@@ -40,9 +40,9 @@ def test_find_stalls_blocks_credential_in_arg():
 
 
 def test_find_stalls_rate_limit():
-    """Per-request cap denies the 11th call (cap is 10 in hawker.yaml)."""
+    """Per-request cap denies the 16th call (cap is 15 in hawker.yaml)."""
 
-    for _ in range(10):
+    for _ in range(15):
         find_stalls(location="marina bay")
     with pytest.raises(PolicyViolation):
         find_stalls(location="marina bay")

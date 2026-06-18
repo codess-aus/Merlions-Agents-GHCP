@@ -111,6 +111,15 @@ def evals(suite: str = typer.Option("hawker"), since: str = typer.Option("yester
     run_suite(suite=suite, since=since)
 
 
+@app.command("harvest-evals")
+def harvest_evals() -> None:
+    """Convert real policy.deny trace events into regression eval cases."""
+
+    from merlions.evals.from_traces import harvest
+
+    harvest()
+
+
 @app.command("call-tool")
 def call_tool(
     tool: str = typer.Argument(..., help="Tool name, e.g. find_stalls"),
