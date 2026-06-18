@@ -95,6 +95,8 @@ That's the workflow: Copilot accelerates the safe parts, so I can spend my brain
 
 **Observability.** Logs, metrics, traces. Every tool call. Every guardrail decision. Every refusal. If you can't see it, you can't trust it. `[beat]`
 
+*And these four words aren't just ours. They're the Build 2026 throughline: trace with **OpenTelemetry's GenAI semantic conventions**, enforce guardrails with the new **Agent Control Specification** — a universal runtime standard that turns agent safety from best-effort into deterministic control — and run **continuous evaluation** on every agent action. Same four pillars, now an industry standard.* `[beat]`
+
 These aren't features we bolt on at the end. They're the **architectural style** — like the tiles on a Peranakan shophouse, the pattern runs through every wall. `[beat]`
 
 For decision makers: if a vendor pitches you an agent and can't show you all four of these, walk away. For developers: design these in from line one. Retrofitting trust is ten times more expensive than building it in. `[beat]`
@@ -171,7 +173,7 @@ The takeaway: **personality is a product feature. Trust is what lets you ship it
 
 **Azure Container Apps.** Your agents, containerised, serverless, scale-to-zero. Pay for what you use. Great fit for spiky agent workloads. Built-in revisions for safe rollouts and instant rollback.
 
-**Azure Application Insights.** Every tool call traced. Every guardrail decision logged. Every latency spike charted. This is where 'observability' becomes a dashboard you can actually point at.
+**Azure Application Insights** — part of Azure Monitor. Every tool call traced. Every guardrail decision logged. Every latency spike charted. This is where 'observability' becomes a dashboard you can actually point at. Under the hood it's **OpenTelemetry** — the `azure-monitor-opentelemetry` distro — emitting GenAI spans for every model and tool call. Standard wire format, so you're never locked in. *If you're on Microsoft Foundry, the built-in Observability dashboard gives you token, latency, and quality views out of the box.*
 
 **Azure Cosmos DB.** Conversation state, RAG store, eval datasets. Multi-region, low latency, fits the agent access pattern. *You can start cheap and scale.*
 
@@ -197,7 +199,7 @@ And critically — every one of these services has a **regional presence in Sout
 
 **Understand** — dashboards and alerts. What's slow? What's failing? Which guardrails are firing — and are they firing too much, or not enough?
 
-**Improve** — feedback loops and evals. Take real traces, turn them into eval cases, run them every CI build. The agent gets measurably better, week over week. `[beat]`
+**Improve** — feedback loops and evals. Take real traces, turn them into eval cases, run them every CI build. The agent gets measurably better, week over week. *This is the Build 2026 push: **continuous evaluation** with built-in evaluators — Relevance, Groundedness, Coherence, Fluency — plus risk-and-safety checks and an **AI Red Teaming Agent** that probes for jailbreaks and prompt injection. Quality and safety, scored automatically, on a sampled slice of real traffic.* `[beat]`
 
 Let me show you what this looks like in App Insights. `[beat]`
 
@@ -205,7 +207,7 @@ Let me show you what this looks like in App Insights. `[beat]`
 
 `[After clip lands]` You just saw three things. **One** — a real tool-call trace, top to bottom, with timings. **Two** — a guardrail rejection logged with the matched rule and the evidence. **Three** — that rejection flowing into an eval dataset that runs against the next build. `[beat]`
 
-That loop is the difference between an agent that *demos well* and an agent that *gets better in production*. `[beat]`
+That loop is the difference between an agent that *demos well* and an agent that *gets better in production*. The Build 2026 mantra says it best: **Observe. Evaluate. Improve. Roll out safely. Repeat.** `[beat]`
 
 Say it with me: **observable systems are trustworthy systems.** `[beat]` Closing thought."
 

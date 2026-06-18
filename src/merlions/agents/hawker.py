@@ -18,27 +18,14 @@ from __future__ import annotations
 import time
 
 from merlions.governance import govern, load_policy
-from merlions.llm import LLMResponse, complete, hawker_prompt, HAWKER_SYSTEM
+from merlions.llm import HAWKER_SYSTEM, LLMResponse, complete, hawker_prompt
 from merlions.models import AgentReply, InvalidInput
 from merlions.reliability import FallbackChain
 from merlions.telemetry import span
-from merlions.tools.maps import maps_search
+from merlions.tools.find_stalls import find_stalls
 from merlions.tools.menu_index import menu_index_search
 
 POLICY = load_policy("hawker")
-
-
-@govern(POLICY, tool_name="find_stalls")
-def find_stalls(location: str, cuisine: str | None = None):
-    """Governed wrapper for maps_search.
-
-    The @govern decorator:
-      - checks the tool name is on the policy allowlist
-      - scans arguments for blocked patterns (credentials, injection)
-      - enforces the per-request call rate limit
-      - logs every decision (allow or deny) to the append-only audit trail
-    """
-    return maps_search(location, cuisine)
 
 
 @govern(POLICY, tool_name="menu_index_search")

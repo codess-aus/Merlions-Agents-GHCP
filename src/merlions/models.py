@@ -18,6 +18,12 @@ class Stall(BaseModel):
     distance_m: int
     source: str = Field(description="Citation key, e.g. menu_index/satay-bay/2026-06-13")
 
+    @property
+    def source_citation(self) -> str:
+        """Compatibility alias used by demo tests and narration."""
+
+        return self.source
+
 
 class PSIReading(BaseModel):
     """A PSI reading from NEA-style data."""
