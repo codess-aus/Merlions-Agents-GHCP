@@ -223,13 +223,11 @@ Trigger a deliberate policy denial and show the audit record:
 ```bash
 python3 -c "
 from merlions.tools.find_stalls import find_stalls
-from merlions.governance import PolicyViolation
-try:
-    find_stalls('api_key=AKIA_DEMO')
-except PolicyViolation as e:
-    print('DENIED:', e)
+find_stalls('api_key=AKIA_DEMO')
 "
 ```
+
+Let the `PolicyViolation` surface in the terminal. That keeps the clip honest: the policy blocks the bad argument, and the exception is just the visible result.
 
 Then inspect the audit log:
 
