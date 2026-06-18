@@ -57,7 +57,7 @@ allowed_tools:
 blocked_patterns:
   - "(?i)(api[_-]?key|password|secret|bearer\\s+[a-z0-9]+)\\s*[:=]?"
   - "(?i)ignore\\s+previous\\s+instructions"
-max_calls_per_request: 10
+max_calls_per_request: 15
 require_citation: true
 ```
 
@@ -73,7 +73,7 @@ Generate pytest cases for find_stalls (imported from merlions.tools.find_stalls)
 1. Happy path — marina bay returns a non-empty list of Stall, each with a source citation.
 2. Empty location — raises InvalidInput.
 3. Credential string in the location arg — governance raises PolicyViolation.
-4. Rate limit — after 10 calls the 11th raises PolicyViolation (cap is max_calls_per_request: 10 in hawker.yaml).
+4. Rate limit — after 15 calls the 16th raises PolicyViolation (cap is max_calls_per_request: 15 in hawker.yaml).
 5. Unknown but non-empty location — returns an empty list without raising.
 Use a reset_call_counter() autouse fixture between tests.
 ```
@@ -90,7 +90,7 @@ Expected output — all green:
 tests/test_find_stalls.py::test_happy_path_marina_bay_returns_stalls PASSED
 tests/test_find_stalls.py::test_empty_location_raises_invalid_input PASSED
 tests/test_find_stalls.py::test_credential_in_location_raises_policy_violation PASSED
-tests/test_find_stalls.py::test_rate_limit_raises_policy_violation_on_11th_call PASSED
+tests/test_find_stalls.py::test_rate_limit_raises_policy_violation_on_16th_call PASSED
 tests/test_find_stalls.py::test_unknown_location_returns_empty_list PASSED
 
 5 passed in 0.xx s

@@ -1,8 +1,32 @@
 """Structured telemetry that mimics Azure Application Insights shape.
 
 Writes JSON Lines so the demo can show 'App Insights-style' traces without
-needing an Azure subscription. In production, swap `emit` for the
-azure-monitor-opentelemetry exporter.
+needing an Azure subscription.
+
+=============================================================================
+PRODUCTION: swap the JSON-lines emitter for Azure Monitor like this:
+
+    from azure.monitor.opentelemetry import configure_azure_monitor
+    from opentelemetry import trace
+
+    configure_azure_monitor(
+        connection_string=os.environ["APPLICATIONINSIGHTS_CONNECTION_STRING"]
+    )
+
+    tracer = trace.get_tracer(__name__)
+
+    # Then replace the `span` context manager below with:
+    with tracer.start_as_current_span("agent.hawker") as s:
+        s.set_attribute("agent_id", "hawker")
+        ...
+
+The rest of the codebase (agents, governance, tools) calls only `span()`
+and `emit_event()` from this module — swap this file and everything else
+stays the same.
+
+Cost tip: use sampling (e.g. 10%) in production to avoid paying for every
+single tool call. Keep denials and errors at 100% sample rate.
+=============================================================================
 """
 
 from __future__ import annotations

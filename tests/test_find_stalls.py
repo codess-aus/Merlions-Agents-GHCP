@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import pytest
 
-from merlions.tools.find_stalls import find_stalls
 from merlions.governance import PolicyViolation, reset_call_counter
 from merlions.models import InvalidInput, Stall
+from merlions.tools.find_stalls import find_stalls
 
 
 @pytest.fixture(autouse=True)
@@ -36,12 +36,12 @@ def test_empty_location_raises_invalid_input():
 def test_credential_in_location_raises_policy_violation():
     """A credential string in the location arg triggers a PolicyViolation."""
     with pytest.raises(PolicyViolation):
-        find_stalls("password=secret123")
+        find_stalls("api_key=demo_key")
 
 
-def test_rate_limit_raises_policy_violation_on_11th_call():
-    """After 10 calls the 11th raises PolicyViolation (cap is max_calls_per_request: 10)."""
-    for _ in range(10):
+def test_rate_limit_raises_policy_violation_on_16th_call():
+    """After 15 calls the 16th raises PolicyViolation (hawker max_calls_per_request is 15)."""
+    for _ in range(15):
         find_stalls("marina bay")
 
     with pytest.raises(PolicyViolation):
@@ -54,4 +54,3 @@ def test_unknown_location_returns_empty_list():
 
     assert isinstance(results, list)
     assert len(results) == 0
-

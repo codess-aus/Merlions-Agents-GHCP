@@ -34,6 +34,8 @@ def test_alert_is_idempotent_within_same_band():
     assert first.summary == second.summary
 
 
-def test_invalid_region_raises():
-    with pytest.raises(Exception):
-        check(region="atlantis")  # type: ignore[arg-type]
+def test_invalid_region_falls_back_gracefully():
+    """Unknown region triggers the FallbackChain unavailable path — no unhandled exception."""
+    reply = check(region="atlantis")  # type: ignore[arg-type]
+    assert reply.agent_id == "haze"
+    assert "unavailable" in reply.summary.lower() or "data" in reply.summary.lower()
