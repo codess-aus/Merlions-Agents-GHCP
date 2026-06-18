@@ -221,24 +221,15 @@ Walk through the output table. Point out: the `agent.hawker` span, child spans `
 Trigger a deliberate policy denial and show the audit record:
 
 ```bash
-python -c "
-from merlions.tools.find_stalls import find_stalls
-find_stalls('api_key=AKIA_DEMO')
-"
+merlions call-tool find_stalls --arg location=api_key=AKIA_DEMO
 ```
 
-Let the `PolicyViolation` surface in the terminal. That keeps the clip honest: the policy blocks the bad argument, and the exception is just the visible result.
+Let the red deny panel surface in the terminal. That keeps the clip honest: the policy blocks the bad argument, and the panel is just the visible result.
 
 Then inspect the audit log:
 
 ```bash
-python -c "
-import json, pathlib
-for line in pathlib.Path('.audit/audit.jsonl').read_text().splitlines():
-    r = json.loads(line)
-    if r['decision'] == 'deny':
-        print(json.dumps(r, indent=2))
-" | tail -12
+python -c "import json, pathlib; [print(json.dumps(r, indent=2)) for r in (json.loads(line) for line in pathlib.Path('.audit/audit.jsonl').read_text(encoding='utf-8').splitlines()) if r['decision'] == 'deny']" | Select-Object -Last 12
 ```
 
 Show the output — point out what IS logged:
